@@ -32,7 +32,8 @@
     "cleverbot-node": "0.1.1",
     "cool-ascii-faces": ">= 1.3.3",
     "hubot-dogeme": ">= 1.0.0",
-    "cleverbot-node": "0.1.6"
+    "cleverbot-node": "0.1.6",
+    "hackpad": "0.0.3"
   },
   "engines": {
     "node": ">= 0.8.x",
