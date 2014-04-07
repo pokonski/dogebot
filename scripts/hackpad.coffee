@@ -20,6 +20,6 @@ module.exports = (robot) ->
     client.search query, 0, 3, (error, response) ->
       if response.length > 0
         for pad in response
-          msg.send "#{pad.title} - http://#{site}.gorailsgo.com/#{pad.id}"
+          msg.send "#{pad.title} - http://#{site}.hackpad.com/#{pad.id}"
       else
         msg.send "No hackpads found!"
