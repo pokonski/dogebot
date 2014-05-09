@@ -14,7 +14,7 @@ module.exports = (robot) ->
         console.log data
         if data.outcome.intent == "weather"
           console.log JSON.stringify(data.outcome.entities.location)
-          message.text = "hubot weather #{data.outcome.entities.location.value}"
+          message.text = "!weather #{data.outcome.entities.location.value}"
           robot.receive(message)
 
 
