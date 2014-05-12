@@ -4,8 +4,13 @@
 
 replies = [
   "That's nonsense!",
-  "I don't know what this means",
-  "Now you are just making things up"
+  "I don't know what this means.",
+  "Now you are just making things up.",
+  "I'm afraid I can't do that.",
+  "I don't quite understand...",
+  "Hmm?",
+  "Say what?",
+  "That doesn't ring a bell."
 ]
 
 greetings = [
