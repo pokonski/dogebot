@@ -13,7 +13,7 @@ module.exports = (robot) ->
     robot.brain.set "repo-#{msg.message.user.id}", repo
     msg.send "Setting repo to #{repo}"
 
-  robot.respond /repo/i, (msg) ->
+  robot.respond /repo$/i, (msg) ->
     repo = robot.brain.get("repo-#{msg.message.user.id}")
     if repo
       msg.send "Your default repo is: #{repo}"
@@ -25,6 +25,6 @@ module.exports = (robot) ->
     issue = msg.match[2]
     console.log msg.match
     if repo
-      msg.send "#{repo}/#{issue}"
+      msg.send "#{repo}/issues/#{issue}"
     else
       msg.send "Set your default repository with `repo` command."
