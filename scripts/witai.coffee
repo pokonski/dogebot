@@ -23,3 +23,9 @@ module.exports = (robot) ->
           console.log JSON.stringify(data.outcome.entities.location)
           message.text = "!weather #{data.outcome.entities.location.value}"
           robot.receive(message)
+        if data.outcome.intent == "remind"
+          text = data.outcome.entities.reminder.body
+          time = data.outcome.entities.datetime.body.replace("in ", "")
+          if text && time
+            message.text = "!remind me in #{time} to #{text}"
+            robot.receive(message)
