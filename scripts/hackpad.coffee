@@ -11,7 +11,7 @@
 #   Piotrek Okoński
 
 Hackpad = require('hackpad');
-site = "pilotcreative"
+site = "pilot"
 
 module.exports = (robot) ->
   robot.respond /hackpad (.+)/i, (msg) ->
