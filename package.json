@@ -33,7 +33,8 @@
     "cool-ascii-faces": ">= 1.3.3",
     "hubot-dogeme": ">= 1.0.0",
     "cleverbot-node": "0.1.6",
-    "hackpad": "0.0.3"
+    "hackpad": "0.0.3",
+    "hubot-slack": "2.1.0"
   },
   "engines": {
     "node": ">= 0.8.x",
