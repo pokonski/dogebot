@@ -39,6 +39,5 @@ imageMe = (msg, query, animated, faces, cb) ->
       images = JSON.parse(body)
       images = images.items
       if images?.length > 0
-        image  = msg.random images
-        cb image.link
+        cb images[0].link
 
