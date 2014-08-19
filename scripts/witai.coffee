@@ -59,10 +59,10 @@ class WitAI
   remind: (outcome) ->
     text = outcome.entities.reminder[0].value
     time = outcome.entities.datetime[0].value.from
-    time = parseInt((moment() - moment(time)) / 1000)
+    time = Math.abs(parseInt((moment() - moment(time)) / 1000))
 
     if text && time
-      @message.text = "!remind me in #{time} to #{text}"
+      @message.text = "!remind me in #{time} seconds to #{text}"
       @robot.receive(@message)
 
 module.exports = (robot) ->
