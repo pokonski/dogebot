@@ -43,20 +43,22 @@ module.exports = (robot) ->
     url = "https://api.wit.ai/message?q=#{encodeURIComponent(msg.match[1])}"
     robot.http(url)
       .header('Authorization', "Bearer #{process.env.WITAI_KEY}")
+      .header('Accept', "application/vnd.wit.20140919")
       .get() (err, res, body) ->
         data = JSON.parse(body)
         console.log data
-        if data.outcome.intent == "incorrect"
-          msg.send msg.random(replies)
-        if data.outcome.intent == "weather"
-          console.log JSON.stringify(data.outcome.entities.location)
-          message.text = "!weather #{data.outcome.entities.location.value}"
-          robot.receive(message)
-        if data.outcome.intent == "greetings"
-          msg.send(msg.random(greetings))
-        if data.outcome.intent == "remind"
-          text = data.outcome.entities.reminder.body
-          time = data.outcome.entities.datetime.body.replace("in ", "")
-          if text && time
-            message.text = "!remind me in #{time} to #{text}"
+        for outcome in data.outcomes
+          if outcome.intent == "incorrect"
+            msg.send msg.random(replies)
+          if outcome.intent == "weather"
+            console.log JSON.stringify(outcome.entities.location)
+            message.text = "!weather #{outcome.entities.location.value}"
             robot.receive(message)
+          if outcome.intent == "greetings"
+            msg.send(msg.random(greetings))
+          if outcome.intent == "remind"
+            text = outcome.entities.reminder.body
+            time = outcome.entities.datetime.body.replace("in ", "")
+            if text && time
+              message.text = "!remind me in #{time} to #{text}"
+              robot.receive(message)
