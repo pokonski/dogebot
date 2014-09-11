@@ -24,16 +24,19 @@ module.exports = (robot) ->
     Wolfram.query msg.match[2], (e, results) ->
       console.log results
       console.log "-------"
+      output = ""
       if results and results.length > 0
         for result in results
           if result.title != "Input interpretation"
-            msg.send "*#{result.title}*"
+            output += "*#{result.title}*\n"
             for subpod in result.subpods
               console.log subpod
               console.log "---"
-              if subpod.value.length > 0
-                msg.send subpod.value
+              if subpod.image.length > 0
+                output += subpod.image
               else
-                msg.send subpod.image
+                output += subpod.value
+              output += "\n"
+        msg.send output
       else
         msg.send 'Hmm...not sure'
