@@ -27,15 +27,14 @@ module.exports = (robot) ->
       output = ""
       if results and results.length > 0
         for result in results
-          if result.title != "Input interpretation"
-            output += "*#{result.title}*\n"
+          if result.title == "Result"
             for subpod in result.subpods
               console.log subpod
               console.log "---"
-              if subpod.image.length > 0
-                output += subpod.image
-              else
+              if subpod.value.length > 0
                 output += subpod.value
+              else
+                output += subpod.image
               output += "\n"
         msg.send output
       else
