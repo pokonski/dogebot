@@ -21,12 +21,19 @@ Wolfram = require('wolfram').createClient(process.env.HUBOT_WOLFRAM_APPID)
 module.exports = (robot) ->
   robot.respond /(wolfram|wfa) (.*)$/i, (msg) ->
     console.log msg.match
-    Wolfram.query msg.match[2], (e, result) ->
-      if result and result.length > 0
-        for subpod in result[1]['subpods']
-          if subpod.value.length > 0
-            msg.send subpod.value
-          else
-            msg.send subpod.image
+    Wolfram.query msg.match[2], (e, results) ->
+      console.log results
+      console.log "-------"
+      if results and results.length > 0
+        for result in results
+          if result.title != "Input interpretation"
+            msg.send "*#{result.title}*"
+            for subpod in result.subpods
+              console.log subpod
+              console.log "---"
+              if subpod.value.length > 0
+                msg.send subpod.value
+              else
+                msg.send subpod.image
       else
         msg.send 'Hmm...not sure'
