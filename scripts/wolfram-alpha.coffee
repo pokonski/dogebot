@@ -26,16 +26,15 @@ module.exports = (robot) ->
       console.log "-------"
       output = ""
       if results and results.length > 0
-        for result in results
-          if result.title == "Result"
-            for subpod in result.subpods
-              console.log subpod
-              console.log "---"
-              if subpod.value.length > 0
-                output += subpod.value
-              else
-                output += subpod.image
-              output += "\n"
+        result = results[1]
+        for subpod in result.subpods
+          console.log subpod
+          console.log "---"
+          if subpod.value.length > 0
+            output += subpod.value
+          else
+            output += subpod.image
+          output += "\n"
         msg.send output
       else
         msg.send 'Hmm...not sure'
