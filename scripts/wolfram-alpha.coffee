@@ -24,9 +24,9 @@ module.exports = (robot) ->
     Wolfram.query msg.match[2], (e, result) ->
       if result and result.length > 0
         for subpod in result[1]['subpods']
-          if subpod.image.length > 0
-            msg.send subpod.image
-          else
+          if subpod.value.length > 0
             msg.send subpod.value
+          else
+            msg.send subpod.image
       else
         msg.send 'Hmm...not sure'
