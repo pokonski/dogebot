@@ -9,29 +9,23 @@
 
 module.exports = (robot) ->
   robot.respond /(image|img)( me)? (.*)/i, (msg) ->
-    useless(msg)
-    #imageMe msg, msg.match[3], (url) ->
-    #  msg.send url
+    imageMe msg, msg.match[3], (url) ->
+      msg.send url
 
   robot.respond /animate( me)? (.*)/i, (msg) ->
-    useless(msg)
-    #imageMe msg, msg.match[2], true, (url) ->
-    #  msg.send url
+    imageMe msg, msg.match[2], true, (url) ->
+      msg.send url
 
   robot.respond /(?:mo?u)?sta(?:s|c)he?(?: me)? (.*)/i, (msg) ->
-    useless(msg)
     type = Math.floor(Math.random() * 6)
     mustachify = "http://mustachify.me/#{type}?src="
     imagery = msg.match[1]
 
-    #if imagery.match /^https?:\/\//i
-    #  msg.send "#{mustachify}#{imagery}"
-    #else
-    #  imageMe msg, imagery, false, true, (url) ->
-    #    msg.send "#{mustachify}#{url}"
-
-useless = (msg) ->
-  msg.send "Sorry, I can no longer display images due to Slack settings. I am useless :("
+    if imagery.match /^https?:\/\//i
+      msg.send "#{mustachify}#{imagery}"
+    else
+      imageMe msg, imagery, false, true, (url) ->
+        msg.send "#{mustachify}#{url}"
 
 imageMe = (msg, query, animated, faces, cb) ->
   cb = animated if typeof animated == 'function'
