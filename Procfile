@@ -1,1 +1,1 @@
-web: bin/hubot --adapter hipchat --alias !
+web: bin/hubot --adapter slack --alias !
