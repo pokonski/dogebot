@@ -43,6 +43,7 @@ class Poll
     return msg.send('Please provide at least 2 answers') if answers.length <= 1
 
     user = this.getUser(msg)
+    return msg.send('U r not my mum!') if user.name != "piotrek"
     @poll = { user: user, question: msg.match[1], answers: answers, cancelled: 0, voters: {} }
 
     msg.send """#{user.name} asked: #{@poll.question}
