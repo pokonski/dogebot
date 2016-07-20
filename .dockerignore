@@ -1,0 +1,9 @@
+.git
+.*~
+*~
+*.sw*
+*.example
+*.env
+.dockerignore
+node_modules
+Dockerfile

@@ -1,0 +1,19 @@
+---
+version: '2'
+services:
+  bot:
+    mem_limit: 100m
+    memswap_limit: 0
+    build: .
+    depends_on:
+      - redis
+    env_file: hubot.env
+
+  redis:
+    mem_limit: 20m
+    memswap_limit: 0
+    build:
+      context: .
+      dockerfile: Dockerfile.redis
+    volumes:
+      - /data

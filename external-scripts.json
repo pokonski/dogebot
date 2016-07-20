@@ -1,1 +1,4 @@
-["hubot-dogeme", "hubot-youtube-v3", "hubot-heroku-keepalive"]
+[
+  "hubot-redis-brain",
+  "hubot-auth"
+]

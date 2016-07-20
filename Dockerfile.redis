@@ -1,0 +1,9 @@
+FROM alpine:3.4
+
+RUN apk add --no-cache redis && mkdir /data && chown redis:redis /data
+USER redis
+VOLUME /data
+WORKDIR /data
+
+EXPOSE 6379
+CMD ["redis-server", "--appendonly", "yes", "--protected-mode", "no"]
