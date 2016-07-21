@@ -1,7 +1,7 @@
 # Hubot
 
 1. set up env in `hubot.env`
-2. `docker-compose -H $DOCKERHOST up -d`
+2. `docker-compose -H $DOCKERHOST up -d --build`
 3. ???
 4. PROFIT
 
