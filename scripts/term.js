@@ -16,9 +16,19 @@ function getDefinitions(robot, term) {
   }
 }
 
+function setDefinitions(robot, term, definitions) {
+  robot.brain.set('term-' + term, JSON.stringify(definitions));
+}
+
 function addDefinition(robot, term, definition) {
   var definitions = getDefinitions(robot, term).concat(definition);
-  robot.brain.set('term-' + term, JSON.stringify(definitions));
+  setDefinitions(robot, term, definitions);
+}
+
+function removeDefinition(robot, term, index) {
+  var definitions = getDefinitions(robot, term);
+  definitions.splice(index, 1);
+  setDefinitions(robot, term, definitions);
 }
 
 function getRandom(definitions) {
@@ -36,7 +46,7 @@ module.exports = function(robot) {
 
   robot.respond(/describe (\S*).*/i, function(msg) {
     var term = msg.match[1];
-    var defs = getDefinitions(robot, term).map(function(d) { return '- ' + d; });
+    var defs = getDefinitions(robot, term).map(function(d, i) { return '- [' + i + '] ' + d; });
     var r = ['I heard "' + term + '" is:'].concat(defs);
     msg.reply(r.join("\n"));
   });
@@ -46,7 +56,19 @@ module.exports = function(robot) {
     var defs = getDefinitions(robot, term);
 
     if (defs.length !== 0) {
-      msg.reply(getRandom(defs));
+      msg.send(getRandom(defs));
+    }
+  });
+
+  robot.respond(/remove (\S*) (\d*).*/i, function(msg) {
+    var term = msg.match[1];
+    var idx  = parseInt(msg.match[2]);
+
+    if (robot.auth.hasRole(msg.envelope.user, 'admin')) {
+      removeDefinition(robot, term, idx);
+      msg.reply('Removed definition for term "' + term '"');
+    } else {
+      msg.reply('Go away!');
     }
   });
 }
