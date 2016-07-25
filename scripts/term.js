@@ -48,7 +48,9 @@ module.exports = function(robot) {
     var term = msg.match[1];
     var defs = getDefinitions(robot, term).map(function(d, i) { return '- [' + i + '] ' + d; });
     var r = ['I heard "' + term + '" is:'].concat(defs);
-    msg.reply(r.join("\n"));
+    msg.send(r.join("\n"));
+
+    robot.logger.warning(JSON.stringify(robot.brain.users()));
   });
 
   robot.respond(/(\S*).*/i, function(msg) {
@@ -64,7 +66,7 @@ module.exports = function(robot) {
     var term = msg.match[1];
     var idx  = parseInt(msg.match[2]);
 
-    if (robot.auth.hasRole(msg.envelope.user, 'admin')) {
+    if (robot.auth.isAdmin(msg.envelope.user)) {
       removeDefinition(robot, term, idx);
       msg.reply('Removed definition for term "' + term + '"');
     } else {
