@@ -10,7 +10,10 @@ module.exports = function(robot) {
     var code = msg.match[1];
 
     if (robot.auth.isAdmin(msg.envelope.user)) {
-      msg.send(util.inspect(eval(code)));
+      robot.logger.info('About to eval: ' + code);
+      var result = util.inspect(eval(code));
+      robot.logger.info('Result: ' + result);
+      msg.send(result);
     } else {
       msg.reply('-EPERM');
     }
