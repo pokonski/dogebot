@@ -66,7 +66,7 @@ module.exports = function(robot) {
 
     if (robot.auth.hasRole(msg.envelope.user, 'admin')) {
       removeDefinition(robot, term, idx);
-      msg.reply('Removed definition for term "' + term '"');
+      msg.reply('Removed definition for term "' + term + '"');
     } else {
       msg.reply('Go away!');
     }
