@@ -31,7 +31,7 @@ module.exports = function(robot) {
     var def  = msg.match[2];
 
     addDefinition(robot, term, def);
-    msg.reply('Added definition for term "' + term '"');
+    msg.reply('Added definition for term "' + term + '"');
   });
 
   robot.respond(/describe (\S*).*/i, function(msg) {
