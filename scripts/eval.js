@@ -11,7 +11,12 @@ module.exports = function(robot) {
 
     if (robot.auth.isAdmin(msg.envelope.user)) {
       robot.logger.info('About to eval: ' + code);
-      var result = util.inspect(eval(code));
+      try {
+        var result = util.inspect(eval(code));
+      } catch (e) {
+        var result = e.toString();
+      }
+
       robot.logger.info('Result: ' + result);
       msg.send(result);
     } else {
