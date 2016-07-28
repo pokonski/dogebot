@@ -5,19 +5,29 @@
 //  add <term> <definition> - Add definition
 //  <term> - Print randomly selected definition
 //  describe <term> - List all definitions
+//  terms - List all known terms
+
 
 function getDefinitions(robot, term) {
-  var definitions = robot.brain.get('term-' + term);
+  var definitions = getTerms(robot)[term];
 
-  if (definitions !== null) {
-    return JSON.parse(definitions);
+  if (definitions !== undefined) {
+    return definitions;
   } else {
     return [];
   }
 }
 
 function setDefinitions(robot, term, definitions) {
-  robot.brain.set('term-' + term, JSON.stringify(definitions));
+  var terms = getTerms(robot);
+
+  if (definitions.length === 0) {
+    delete terms[term];
+  } else {
+    terms[term] = definitions;
+  }
+
+  setTerms(robot, terms);
 }
 
 function addDefinition(robot, term, definition) {
@@ -35,6 +45,14 @@ function getRandom(definitions) {
   return definitions[Math.floor(Math.random() * definitions.length)];
 }
 
+function getTerms(robot) {
+  return robot.brain.get('terms');
+}
+
+function setTerms(robot, terms) {
+  return robot.brain.set('terms', terms);
+}
+
 module.exports = function(robot) {
   robot.respond(/add (\S*) (.*)/i, function(msg) {
     var term = msg.match[1];
@@ -49,8 +67,6 @@ module.exports = function(robot) {
     var defs = getDefinitions(robot, term).map(function(d, i) { return '- [' + i + '] ' + d; });
     var r = ['I heard "' + term + '" is:'].concat(defs);
     msg.send(r.join("\n"));
-
-    robot.logger.warning(JSON.stringify(robot.brain.users()));
   });
 
   robot.respond(/(\S*).*/i, function(msg) {
@@ -72,5 +88,11 @@ module.exports = function(robot) {
     } else {
       msg.reply('Go away!');
     }
+  });
+
+  robot.respond(/terms.*/i, function(msg) {
+    var terms = Object.keys(getTerms(robot)).map(function(t) { return '- ' + t; });
+    var r = ['I heard about these things:'].concat(terms);
+    msg.send(r.join("\n"));
   });
 }
