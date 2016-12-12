@@ -17,7 +17,6 @@ module.exports = (robot) ->
 imageMe = (msg, query, animated, cb) ->
   q = searchType: 'image', q: query, safe: process.env.GOOGLE_CSE_SAFE_SEARCH || "medium", key: process.env.GOOGLE_CSE_KEY, cx: process.env.GOOGLE_CSE_CX
   if typeof animated is 'boolean' and animated is true
-    q.exactTerms = 'gif'
     q.fileType = 'gif'
     q.hq = 'animated'
     q.tbs = 'itp:animated'
