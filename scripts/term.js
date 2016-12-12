@@ -9,7 +9,11 @@
 
 
 function getDefinitions(robot, term) {
-  var definitions = getTerms(robot)[term];
+  var terms = getTerms(robot);
+  if (terms === undefined || terms === null)
+    return [];
+
+  var definitions = terms[term];
 
   if (definitions !== undefined) {
     return definitions;
@@ -20,6 +24,8 @@ function getDefinitions(robot, term) {
 
 function setDefinitions(robot, term, definitions) {
   var terms = getTerms(robot);
+  if (terms === undefined || terms === null)
+    terms = {}
 
   if (definitions.length === 0) {
     delete terms[term];
